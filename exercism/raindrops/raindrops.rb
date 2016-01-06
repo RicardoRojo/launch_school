@@ -1,46 +1,37 @@
+# http://www.exercism.io/exercises/ruby/raindrops/readme
+
 class Raindrops
   VERSION = 1
-  SOUNDS = {3 => 'Pling', 5 => 'Plang', 7 => 'Plong'}
-  PRIMES = [2,3,5,7]
+  SOUNDS = { 3 => 'Pling', 5 => 'Plang', 7 => 'Plong' }
+  PRIMES = [2, 3, 5, 7]
 
   def self.convert(number)
-    working_number = number
     raindrop = ''
+    dividend = number
     i = 0
     divisor = PRIMES[i]
-    
     loop do
-      if self.prime?(working_number,divisor)
-        if self.divisor_is_one?(working_number,divisor)
-          if divisor != 2
-            raindrop += SOUNDS[divisor] if !raindrop.include?(SOUNDS[divisor])
-          end
-          return raindrop
-        else
-          raindrop += SOUNDS[divisor] if divisor != 2 && !raindrop.include?(SOUNDS[divisor])
-          working_number = working_number / divisor
-        end
+      if self.multiple?(dividend, divisor)
+        add_sound_to_raindrop!(raindrop, divisor)
+        return raindrop if self.prime?(dividend, divisor)
+        dividend /= divisor
       else
-        if i + 1 < PRIMES.size
-          i += 1
-          divisor = PRIMES[i]
-        else
-          return number.to_s
-        end
+        i += 1
+        return number.to_s if PRIMES.size <= i
+        divisor = PRIMES[i]
       end
     end
   end
 
-  def self.calculate_primes(number)
-    
+  def self.add_sound_to_raindrop!(raindrop, divisor)
+    raindrop << SOUNDS[divisor] if divisor != 2 && !raindrop.include?(SOUNDS[divisor])
   end
 
-  def self.prime?(number,divisor)
-    number % divisor == 0
+  def self.multiple?(dividend, divisor)
+    dividend % divisor == 0
   end
 
-  def self.divisor_is_one?(number,divisor)
-    number / divisor == 1
+  def self.prime?(dividend, divisor)
+    dividend / divisor == 1
   end
 end
-
