@@ -7,14 +7,16 @@ class Board
     prepare_array!(board)
     board.each_with_index do |line, line_idx|
       line.each_with_index do |cell, cell_idx|
-        next unless bomb?(cell)
+        next unless mine?(cell)
         mark_cells_around_bomb(board, line_idx, cell_idx)
       end
     end
     board.map(&:join)
   end
 
-  def self.bomb?(element)
+  private
+
+  def self.mine?(element)
     element == '*'
   end
 
