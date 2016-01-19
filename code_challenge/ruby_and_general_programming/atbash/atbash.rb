@@ -19,9 +19,7 @@ class Atbash
   end
 
   def self.cipher_word(word)
-    word.inject('') do |decoded, letter|
-      decoded + (num?(letter) ? letter : switch_letter(letter))
-    end
+    word.inject('') { |a, e| a + (num?(e) ? e : switch_letter(e)) }
   end
 
   def self.divide_word(encoded_word)
