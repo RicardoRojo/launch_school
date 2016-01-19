@@ -10,8 +10,11 @@ class Atbash
   end
 
   def self.switch_letter(letter)
-    letter_position = LETTER_ARRAY.find_index(letter.downcase)
-    LETTER_ARRAY[25 - letter_position]
+    LETTER_ARRAY[25 - letter_position(letter)]
+  end
+
+  def self.letter_position(letter)
+    LETTER_ARRAY.find_index(letter.downcase)
   end
 
   def self.clean_word!(word)
